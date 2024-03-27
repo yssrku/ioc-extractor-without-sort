@@ -64,6 +64,11 @@ const ipv4RegExpString =
   "(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}";
 export const ipv4RegExp = new RegExp(ipv4RegExpString, "gi");
 
+const ipv4WithOptionaMaskRegExpString =
+  ipv4RegExpString + "(\\/(3[012]|[12]\\d|[1-9])(?![\/])\\b)?";
+
+export const ipv4WithOptionaMaskRegExp = new RegExp(ipv4WithOptionaMaskRegExpString, "gi");
+
 const v6seg = "[a-fA-F\\d]{1,4}";
 const ipv6RegExpString = `
 (
@@ -81,6 +86,11 @@ const ipv6RegExpString = `
   .replace(/\n/g, "")
   .trim();
 export const ipv6RegExp = new RegExp(ipv6RegExpString, "gi");
+
+const ipv6WithOptionaMaskRegExpString =
+  ipv6RegExpString + "(\\/(1[0-2]\\d|[1-9]\\d?)(?![\\/])\\b)?";
+
+export const ipv6WithOptionaMaskRegExp = new RegExp(ipv6WithOptionaMaskRegExpString, "gi");
 
 const protocol = "(?:(?:https?)://)";
 const auth = "(?:\\S+(?::\\S*)?@)?";

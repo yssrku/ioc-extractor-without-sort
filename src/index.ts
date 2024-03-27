@@ -82,6 +82,28 @@ export {
 
 export type { IOC, Options };
 
+const funcByType = {
+  asns: extractASNs,
+  btcs: extractBTCs,
+  cves: extractCVEs,
+  domains: extractDomains,
+  emails: extractEmails,
+  eths: extractETHs,
+  gaPubIDs: extractGAPubIDs,
+  gaTrackIDs: extractGATrackIDs,
+  ipv4s: extractIPv4s,
+  ipv6s: extractIPv6s,
+  macAddresses: extractMacAddresses,
+  md5s: extractMD5s,
+  sha1s: extractSHA1s,
+  sha256s: extractSHA256s,
+  sha512s: extractSHA512s,
+  ssdeeps: extractSSDEEPs,
+  urls: extractURLs,
+  xmrs: extractXMRs,
+}
+
+
 export class IOCExtractor {
   /**
    * Returns an IOC in data
@@ -121,27 +143,17 @@ export class IOCExtractor {
       ? refang(this.data)
       : this.data;
 
-    const ioc: IOC = {
-      asns: extractASNs(normalizedData),
-      btcs: extractBTCs(normalizedData),
-      cves: extractCVEs(normalizedData),
-      domains: extractDomains(normalizedData, normalizedOptions),
-      emails: extractEmails(normalizedData, normalizedOptions),
-      eths: extractETHs(normalizedData),
-      gaPubIDs: extractGAPubIDs(normalizedData),
-      gaTrackIDs: extractGATrackIDs(normalizedData),
-      ipv4s: extractIPv4s(normalizedData),
-      ipv6s: extractIPv6s(normalizedData),
-      macAddresses: extractMacAddresses(normalizedData),
-      md5s: extractMD5s(normalizedData),
-      sha1s: extractSHA1s(normalizedData),
-      sha256s: extractSHA256s(normalizedData),
-      sha512s: extractSHA512s(normalizedData),
-      ssdeeps: extractSSDEEPs(normalizedData),
-      urls: extractURLs(normalizedData, normalizedOptions),
-      xmrs: extractXMRs(normalizedData),
-    };
-    return ioc;
+    // Fuck TypeScript
+    let only = (options as any).only;
+
+    return Object.keys(funcByType).reduce(
+      (results, type)=>{
+        if(!only || only.includes(type))
+          results[type] = funcByType[type](normalizedData, normalizedOptions);
+
+        return results;
+      }, {}
+    ) as IOC;
   }
 }
 
@@ -155,7 +167,7 @@ export class IOCExtractor {
  */
 export function extractIOC(
   data: string,
-  options: Options = { enableIDN: true, strictTLD: true, enableRefang: true }
+  options: Options = { enableIDN: true, strictTLD: true, enableRefang: true, enableOptionalMask: true }
 ): IOC {
   return IOCExtractor.extractIOC(data, options);
 }

@@ -7,7 +7,7 @@ describe("IOCExtractor", () => {
   describe("simple input", () => {
     it("should extract IOCs from the input", () => {
       const input =
-        "1.1.1[.]1 2.2.2 . 2 google(.)com テスト.example.com https://www.google[.]com http://テスト.example.com f6f8179ac71eaabff12b8c024342109b 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f UA-26296840-4 test@テスト.example.com example.nope";
+        "1.1.1[.]1 2.2.2 . 2 google(.)com テスト.example.com https://www.google[.]com http://テスト.example.com f6f8179ac71eaabff12b8c024342109b 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f UA-26296840-4 test@テスト.example.com example.nope 5.6.7.8/10";
       const ioc = extractIOC(input);
 
       expect(ioc.md5s).toEqual(["f6f8179ac71eaabff12b8c024342109b"]);
@@ -19,7 +19,7 @@ describe("IOCExtractor", () => {
         "テスト.example.com",
         "www.google.com",
       ]);
-      expect(ioc.ipv4s).toEqual(["1.1.1.1", "2.2.2.2"]);
+      expect(ioc.ipv4s).toEqual(["1.1.1.1", "2.2.2.2", "5.6.7.8/10"]);
       expect(ioc.urls).toEqual([
         "https://www.google.com",
         "http://テスト.example.com",
@@ -110,7 +110,7 @@ describe("IOCExtractor", () => {
         "123.123.123.123",
         "192.188.0.1",
       ]);
-      expect(ioc.ipv6s).toEqual(["fdc4:2581:575b:5a72:0000:0000:0000:0001"]);
+      expect(ioc.ipv6s).toEqual(["fdc4:2581:575b:5a72:0000:0000:0000:0001", "2001:db8::/122"]);
       expect(ioc.domains).toEqual([
         "example.com",
         "exa-mple.com",

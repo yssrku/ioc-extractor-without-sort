@@ -2,6 +2,7 @@ export interface Options {
   enableIDN?: boolean;
   strictTLD?: boolean;
   enableRefang?: boolean;
+  enableOptionalMask?: boolean;
 }
 
 export interface IOC {

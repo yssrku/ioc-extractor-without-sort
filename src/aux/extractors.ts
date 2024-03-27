@@ -12,7 +12,9 @@ import {
   internationalizedEmailRegExp,
   internationalizedURLRegExp,
   ipv4RegExp,
+  ipv4WithOptionaMaskRegExp,
   ipv6RegExp,
+  ipv6WithOptionaMaskRegExp,
   macAddressRegExp,
   md5RegExp,
   nonStrictDomainRegExp,
@@ -289,8 +291,11 @@ export function extractEmail(
  * @param {string} s A string
  * @returns {string[]} An array of IPv4s
  */
-export function extractIPv4s(s: string): string[] {
-  return matchesWithRegExp(s, ipv4RegExp);
+export function extractIPv4s(
+  s: string,
+  options: Options = { enableOptionalMask: true }
+): string[] {
+  return matchesWithRegExp(s, options.enableOptionalMask ? ipv4WithOptionaMaskRegExp : ipv4RegExp);
 }
 
 /**
@@ -300,8 +305,11 @@ export function extractIPv4s(s: string): string[] {
  * @param {string} s A string
  * @returns {string | null} IPv4
  */
-export function extractIPv4(s: string): string | null {
-  return getFirstMatchedValue(s, ipv4RegExp);
+export function extractIPv4(
+  s: string,
+  options: Options = { enableOptionalMask: true }
+): string | null {
+  return getFirstMatchedValue(s, options.enableOptionalMask ? ipv4WithOptionaMaskRegExp : ipv4RegExp);
 }
 
 /**
@@ -311,8 +319,11 @@ export function extractIPv4(s: string): string | null {
  * @param {string} s A string
  * @returns {string[]} An array of IPv6s
  */
-export function extractIPv6s(s: string): string[] {
-  return matchesWithRegExp(s, ipv6RegExp);
+export function extractIPv6s(
+  s: string,
+  options: Options = { enableOptionalMask: true }
+): string[] {
+  return matchesWithRegExp(s, options.enableOptionalMask ? ipv6WithOptionaMaskRegExp : ipv6RegExp);
 }
 
 /**
@@ -322,8 +333,11 @@ export function extractIPv6s(s: string): string[] {
  * @param {string} s A string
  * @returns {string | null} IPv6
  */
-export function extractIPv6(s: string): string | null {
-  return getFirstMatchedValue(s, ipv6RegExp);
+export function extractIPv6(
+  s: string,
+  options: Options = { enableOptionalMask: true }
+): string | null {
+  return getFirstMatchedValue(s, options.enableOptionalMask ? ipv6WithOptionaMaskRegExp : ipv6RegExp);
 }
 
 function selectRegExpForURL(options: Options): RegExp {
