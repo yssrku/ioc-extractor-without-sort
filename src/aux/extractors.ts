@@ -28,7 +28,7 @@ import {
   urlRegExp,
   xmrRegExp,
 } from "./regexps";
-import { dedup, normalizeOptions, sortByValue } from "./utils";
+import { dedup, normalizeOptions } from "./utils";
 
 /**
  * Perform String match() by using a regexp
@@ -40,7 +40,7 @@ import { dedup, normalizeOptions, sortByValue } from "./utils";
 function matchesWithRegExp(s: string, regexp: RegExp): string[] {
   // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
   const matched = s.match(regexp);
-  return matched === null ? [] : sortByValue(dedup(matched));
+  return matched === null ? [] : dedup(matched);
 }
 
 function getFirstMatchedValue(s: string, regexp: RegExp): string | null {

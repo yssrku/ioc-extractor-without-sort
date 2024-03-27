@@ -1,5 +1,11 @@
 # IoC extractor
 
+This is a fork of https://github.com/ninoseki/ioc-extractor with sorting feature removed.
+I'm too lazy to make this configurable and send PR, so here we are.
+
+***
+Contents from original readme:
+
 [![npm version](https://badge.fury.io/js/ioc-extractor.svg)](https://badge.fury.io/js/ioc-extractor)
 ![Node.js CI](https://github.com/ninoseki/ioc-extractor/workflows/Node.js%20CI/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/ninoseki/ioc-extractor/badge)](https://www.codefactor.io/repository/github/ninoseki/ioc-extractor)

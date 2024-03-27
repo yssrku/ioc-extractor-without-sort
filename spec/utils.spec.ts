@@ -1,4 +1,4 @@
-import { dedup, refang, sortByValue } from "@/aux/utils";
+import { dedup, refang } from "@/aux/utils";
 
 describe("refang", () => {
   it("should replace ' . '  by .", () => {
@@ -127,19 +127,5 @@ describe("dedup", () => {
   it("should filter to unique ones", () => {
     const input = ["1.1.1.1", "1.1.1.1", "github.com", "github.com"];
     expect(dedup(input)).toEqual(["1.1.1.1", "github.com"]);
-  });
-});
-
-describe("sortByValue", () => {
-  it("should filter to unique ones", () => {
-    const input = ["March", "Jan", "Jun", "Feb", "Dec", "Apr"];
-    expect(sortByValue(input)).toEqual([
-      "Apr",
-      "Dec",
-      "Feb",
-      "Jan",
-      "Jun",
-      "March",
-    ]);
   });
 });

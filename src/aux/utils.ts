@@ -21,17 +21,6 @@ export function dedup(array: string[]): string[] {
   return arrayUnique(array);
 }
 
-/**
- * Soar an array by value
- *
- * @export
- * @param {string[]} array An array of strings
- * @returns {string[]} A sorted array
- */
-export function sortByValue(array: string[]): string[] {
-  return array.sort();
-}
-
 function orRegExp(regexps: RegExp[]): RegExp {
   return new RegExp(regexps.map((r) => r.source).join("|"), "gi");
 }
