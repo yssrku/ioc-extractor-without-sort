@@ -89,7 +89,7 @@ describe("network RegExps", () => {
       "gitlab.com",
       "dev.test.co.jp",
       "www.ne-foo.com",
-      "sub_domain.domain.com"
+      "sub_domain.domain.com",
     ]);
   });
 

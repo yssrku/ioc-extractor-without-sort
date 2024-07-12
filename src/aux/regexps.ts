@@ -15,7 +15,13 @@ const idnZeroOrMoreLabelWithHyphen = `[${idnLabelLetters}-]{0,63}`;
 const idnTwoOrMoreLabelWithHyphen = `[${idnLabelLetters}-]{2,63}`;
 const idnPrefix = "xn--";
 
-const internationalizedDomainRegExpString = `((${idnOneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)+(${tldRegExpString})\\b`;
+const relaxedIdnLabelLetters = "a-z0-9_\\u00a1-\\uffff";
+const relaxedIdnOneOrMoreLabel = `[${relaxedIdnLabelLetters}]{1,63}`;
+
+const internationalizedDomainRegExpString =
+  `((${relaxedIdnOneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)*` +
+  `((${idnOneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)` +
+  `(${tldRegExpString})\\b`;
 export const internationalizedDomainRegExp = new RegExp(
   internationalizedDomainRegExpString,
   "gi"

@@ -116,6 +116,7 @@ describe("IOCExtractor", () => {
         "exa-mple.com",
         "ex4mple.com",
         "short.is",
+        "sub_domain.example.com"
       ]);
       expect(ioc.urls).toEqual([
         "http://192.168.0.1",
