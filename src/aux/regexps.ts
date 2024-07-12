@@ -32,7 +32,14 @@ const oneOrMoreLabel = `[${labelLetters}]{1,63}`;
 const zeroOrMoreLabelWithHyphen = `[${labelLetters}-]{0,63}`;
 const twoOrMoreLabelWithHyphen = `[${labelLetters}-]{2,}`;
 
-const domainRegExpString = `((${oneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)+(${tldRegExpString})\\b`;
+const relaxedLabelLetters = "a-z0-9_";
+const relaxedOneOrMoreLabel = `[${relaxedLabelLetters}]{1,63}`;
+
+const domainRegExpString =
+  `((${relaxedOneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)*` +
+  `((${oneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)` +
+  `(${tldRegExpString})\\b`;
+
 export const domainRegExp = new RegExp(domainRegExpString, "gi");
 
 const nonStrictDomainRegExpString = `((${oneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)+(?:${twoOrMoreLabelWithHyphen})`;

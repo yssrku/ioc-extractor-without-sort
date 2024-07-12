@@ -82,13 +82,14 @@ describe("network RegExps", () => {
 
   it("should match with all domain values", () => {
     const input =
-      "test.co.jp\ngitlab.com\ntest.exe\ndev.test.co.jp www.ne-foo.com";
+      "test.co.jp\ngitlab.com\ntest.exe\ndev.test.co.jp www.ne-foo.com sub_domain.domain.com";
     const matches = input.match(domainRegExp);
     expect(matches).toEqual([
       "test.co.jp",
       "gitlab.com",
       "dev.test.co.jp",
       "www.ne-foo.com",
+      "sub_domain.domain.com"
     ]);
   });
 
