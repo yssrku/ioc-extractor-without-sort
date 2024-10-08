@@ -18,7 +18,7 @@ import {
   xmrRegex,
 } from "./regexes";
 import { urlRegex } from "./url";
-import { dedup, sortByValue } from "./utils";
+import { dedup } from "./utils";
 
 /**
  * Perform String match() by using a regexp
@@ -29,7 +29,7 @@ import { dedup, sortByValue } from "./utils";
  */
 function matchesWithRegExp(s: string, regexp: RegExp): string[] {
   const matched = s.match(regexp);
-  return matched === null ? [] : sortByValue(dedup(matched));
+  return matched === null ? [] : dedup(matched);
 }
 
 function getFirstMatchedValue(s: string, regexp: RegExp): string | null {
