@@ -132,7 +132,7 @@ export class IOCExtractor {
    */
   public static extractIOC(
     data: string,
-    options: Options = { strict: true, refang: true, punycode: false },
+    options: Options = { strict: true, refang: true, punycode: false, optionalMask: true },
   ): IOC {
     const extractor = new IOCExtractor(data);
     return extractor.extractIOC(options);
@@ -198,7 +198,7 @@ export class IOCExtractor {
  */
 export function extractIOC(
   data: string,
-  options: Options = { strict: true, refang: true },
+  options: Options = { strict: true, refang: true, optionalMask: true },
 ): IOC {
   return IOCExtractor.extractIOC(data, options);
 }

@@ -1,4 +1,6 @@
 import type { StrictOptions } from "../types";
+import type { Options as IpOptions } from "./ip";
+
 import { domainRegex } from "./domain";
 import { emailRegex } from "./email";
 import { ipRegex } from "./ip";
@@ -263,11 +265,14 @@ export function extractEmail(
  * @param {string} s A string
  * @returns {string[]} An array of IPv4s
  */
-export function extractIPv4s(s: string): string[] {
+export function extractIPv4s(
+  s: string,
+  options: IpOptions = { optionalMask: true }
+): string[] {
   if (!s.includes(".")) {
     return [];
   }
-  return matchesWithRegExp(s, ipRegex.v4());
+  return matchesWithRegExp(s, ipRegex.v4(options));
 }
 
 /**
@@ -277,11 +282,14 @@ export function extractIPv4s(s: string): string[] {
  * @param {string} s A string
  * @returns {string | null} IPv4
  */
-export function extractIPv4(s: string): string | null {
+export function extractIPv4(
+  s: string,
+  options: IpOptions = { optionalMask: true }
+): string | null {
   if (!s.includes(".")) {
     return null;
   }
-  return getFirstMatchedValue(s, ipRegex.v4());
+  return getFirstMatchedValue(s, ipRegex.v4(options));
 }
 
 /**
@@ -291,8 +299,11 @@ export function extractIPv4(s: string): string | null {
  * @param {string} s A string
  * @returns {string[]} An array of IPv6s
  */
-export function extractIPv6s(s: string): string[] {
-  return matchesWithRegExp(s, ipRegex.v6());
+export function extractIPv6s(
+  s: string,
+  options: IpOptions = { optionalMask: true }
+): string[] {
+  return matchesWithRegExp(s, ipRegex.v6(options));
 }
 
 /**
@@ -302,8 +313,11 @@ export function extractIPv6s(s: string): string[] {
  * @param {string} s A string
  * @returns {string | null} IPv6
  */
-export function extractIPv6(s: string): string | null {
-  return getFirstMatchedValue(s, ipRegex.v6());
+export function extractIPv6(
+  s: string,
+  options: IpOptions = { optionalMask: true }
+): string | null {
+  return getFirstMatchedValue(s, ipRegex.v6(options));
 }
 
 /**

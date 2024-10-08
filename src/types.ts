@@ -6,6 +6,7 @@ export type Options = Partial<{
   strict: boolean;
   refang: boolean;
   punycode: boolean;
+  optionalMask: boolean;
 }>;
 
 export interface IOC {

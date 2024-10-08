@@ -1,5 +1,6 @@
-type Options = Partial<{
+export type Options = Partial<{
   includeBoundaries: boolean;
+  optionalMask: boolean;
 }>;
 
 const word = "[a-fA-F\\d:]";
@@ -36,8 +37,14 @@ export const ipRegex = (options?: Options) =>
     "g",
   );
 
-ipRegex.v4 = (options?: Options) =>
-  new RegExp(`${boundary(options)}${v4}${boundary(options)}`, "g");
+ipRegex.v4 = (options?: Options) => {
+  let maskRegEx = options?.optionalMask ? "(\\/(3[012]|[12]\\d|[1-9])(?![\/])\\b)?" : "";
 
-ipRegex.v6 = (options?: Options) =>
-  new RegExp(`${boundary(options)}${v6}${boundary(options)}`, "g");
+  return new RegExp(`${boundary(options)}${v4}${maskRegEx}${boundary(options)}`, "g");
+}
+
+ipRegex.v6 = (options?: Options) => {
+  let maskRegEx = options?.optionalMask ? "(\\/(1[0-2]\\d|[1-9]\\d?)(?![\\/])\\b)?" : "";
+
+  return new RegExp(`${boundary(options)}${v6}${maskRegEx}${boundary(options)}`, "g");
+}
