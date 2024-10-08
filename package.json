@@ -1,6 +1,6 @@
 {
   "name": "ioc-extractor-without-sort",
-  "version": "5.0.3-p3",
+  "version": "5.0.3-p4",
   "description": "ioc-extractor fork that keeps indicator order from the input document",
   "type": "module",
   "exports": {
