@@ -7,7 +7,7 @@ describe("IOCExtractor", () => {
   describe("simple input", () => {
     it("should extract IOCs from the input", () => {
       const input =
-        "1.1.1[.]1 2.2.2 . 2 google(.)com テスト.example.com https://www.google[.]com http://テスト.example.com f6f8179ac71eaabff12b8c024342109b 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f UA-26296840-4 test@テスト.example.com example.nope";
+        "1.1.1[.]1 2.2.2 . 2 google(.)com テスト.example.com https://www.google[.]com http://テスト.example.com f6f8179ac71eaabff12b8c024342109b 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f UA-26296840-4 test@テスト.example.com example.nope 5.6.7.8/10";
       const ioc = extractIOC(input);
 
       expect(ioc.md5s).toEqual(["f6f8179ac71eaabff12b8c024342109b"]);
@@ -15,15 +15,18 @@ describe("IOCExtractor", () => {
         "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f",
       ]);
       expect(ioc.domains).toEqual([
-        "example.com",
         "google.com",
+        "テスト.example.com",
         "www.google.com",
       ]);
-      expect(ioc.ipv4s).toEqual(["1.1.1.1", "2.2.2.2"]);
-      expect(ioc.urls).toEqual(["https://www.google.com"]);
+      expect(ioc.ipv4s).toEqual(["1.1.1.1", "2.2.2.2", "5.6.7.8/10"]);
+      expect(ioc.urls).toEqual([
+        "https://www.google.com",
+        "http://テスト.example.com",
+      ]);
       expect(ioc.cves.length).toEqual(0);
       expect(ioc.gaTrackIDs).toEqual(["UA-26296840-4"]);
-      expect(ioc.emails).toEqual([]);
+      expect(ioc.emails).toEqual(["test@テスト.example.com"]);
     });
   });
 
@@ -77,37 +80,42 @@ describe("IOCExtractor", () => {
         "be688838ca8686e5c90689bf2ab585cef1137c999b48c70b92f67a5c34dc15697b5d11c982ed6d71be1e1e7f7b4e0733884aa97c3f7a339a8ed03577cf74be09",
       ]);
 
-      expect(ioc.asns).toEqual(["AS3462", "ASN15169"]);
+      expect(ioc.asns).toEqual(["ASN15169", "AS3462"]);
       expect(ioc.ipv4s).toEqual([
-        "123.123.123.123",
         "192.168.0.1",
+        "123.123.123.123",
         "192.188.0.1",
       ]);
-      expect(ioc.ipv6s).toEqual(["fdc4:2581:575b:5a72:0000:0000:0000:0001"]);
+      expect(ioc.ipv6s).toEqual([
+        "fdc4:2581:575b:5a72:0000:0000:0000:0001",
+        "2001:db8::/122",
+      ]);
       expect(ioc.domains).toEqual([
-        "ex4mple.com",
-        "exa-mple.com",
         "example.com",
+        "exa-mple.com",
+        "ex4mple.com",
         "short.is",
+        "sub_domain.example.com",
+        "two-dash-number--123.com",
       ]);
       expect(ioc.urls).toEqual([
-        "http://123.123.123.123/test",
         "http://192.168.0.1",
         "http://192.168.0.1:80/path",
-        "http://ex4mple.com",
-        "http://exa-mple.com",
-        "http://example.com",
+        "http://example.com:80/path",
         "http://example.com/",
         "http://example.com/test",
-        "http://example.com:80/path",
+        "http://example.com",
+        "http://exa-mple.com",
+        "http://ex4mple.com",
+        "http://123.123.123.123/test",
       ]);
       expect(ioc.btcs).toEqual([
         "1HB5XMLmzFVj8ALj6mfBsbifRoD4miY36v",
         "1J6PYEzr4CUoGbnXrELyHszoTSz3wCsCaj",
       ]);
       expect(ioc.xmrs).toEqual([
-        "46bxDoy3pszR42Ds5FeygfWdbMfH7qB5hZHqEPnX6EgVhksrbzJtQYQeETZtniMfWk4Bt7TXmgybpZYRu2fTdppoAf9x7Yd",
         "49urk473npMgWFFBBk2xLMjEqTgg1PHMzg1MjDWBST5AMEEyh58TjCvLEf58uu5kruPWu5pA1RBPKX3quEQpHKoGQ1zbTGe",
+        "46bxDoy3pszR42Ds5FeygfWdbMfH7qB5hZHqEPnX6EgVhksrbzJtQYQeETZtniMfWk4Bt7TXmgybpZYRu2fTdppoAf9x7Yd",
       ]);
       expect(ioc.eths).toEqual(["0x32Be343B94f860124dC4fEe278FDCBD38C102D88"]);
     });
