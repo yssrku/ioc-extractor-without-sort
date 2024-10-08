@@ -101,3 +101,4 @@ ASN15169
 AS3462
 2001:db8::/122 not part of cidr
 0x32Be343B94f860124dC4fEe278FDCBD38C102D88
+two-dash-number--123.com

@@ -19,15 +19,15 @@ const relaxedIdnLabelLetters = "a-z0-9_\\u00a1-\\uffff";
 const relaxedIdnOneOrMoreLabel = `[${relaxedIdnLabelLetters}]{1,63}`;
 
 const internationalizedDomainRegExpString =
-  `((${relaxedIdnOneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)*` +
-  `((${idnOneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)` +
+  `(((?![^x][^n]--)${relaxedIdnOneOrMoreLabel}|${idnPrefix})(${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)*` +
+  `(((?![^x][^n]--)${idnOneOrMoreLabel}|${idnPrefix})(${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)` +
   `(${tldRegExpString})\\b`;
 export const internationalizedDomainRegExp = new RegExp(
   internationalizedDomainRegExpString,
   "gi"
 );
 
-const nonStrictInternationalizedDomainRegExpString = `((${idnOneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)+(?:${idnTwoOrMoreLabelWithHyphen})\\b`;
+const nonStrictInternationalizedDomainRegExpString = `(((?![^x][^n]--)${idnOneOrMoreLabel}|${idnPrefix})(${idnZeroOrMoreLabelWithHyphen}[${idnLabelLetters}])?\\.)+(?:${idnTwoOrMoreLabelWithHyphen})\\b`;
 export const nonStrictInternationalizedDomainRegExp = new RegExp(
   nonStrictInternationalizedDomainRegExpString,
   "gi"
@@ -42,13 +42,15 @@ const relaxedLabelLetters = "a-z0-9_";
 const relaxedOneOrMoreLabel = `[${relaxedLabelLetters}]{1,63}`;
 
 const domainRegExpString =
-  `((${relaxedOneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)*` +
-  `((${oneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)` +
+  `(((?![^x][^n]--)${relaxedOneOrMoreLabel}|${idnPrefix})(${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)*` +
+  `(((?![^x][^n]--)${oneOrMoreLabel}|${idnPrefix})(${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)` +
   `(${tldRegExpString})\\b`;
 
 export const domainRegExp = new RegExp(domainRegExpString, "gi");
 
-const nonStrictDomainRegExpString = `((${oneOrMoreLabel}|${idnPrefix})((?!.{0,63}--)${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)+(?:${twoOrMoreLabelWithHyphen})`;
+const nonStrictDomainRegExpString =
+  `(((?![^x][^n]--)${oneOrMoreLabel}|${idnPrefix})(${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)+(?:${twoOrMoreLabelWithHyphen})`;
+
 export const nonStrictDomainRegExp = new RegExp(
   nonStrictDomainRegExpString,
   "gi"

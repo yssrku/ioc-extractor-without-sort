@@ -110,13 +110,17 @@ describe("IOCExtractor", () => {
         "123.123.123.123",
         "192.188.0.1",
       ]);
-      expect(ioc.ipv6s).toEqual(["fdc4:2581:575b:5a72:0000:0000:0000:0001", "2001:db8::/122"]);
+      expect(ioc.ipv6s).toEqual([
+        "fdc4:2581:575b:5a72:0000:0000:0000:0001",
+        "2001:db8::/122",
+      ]);
       expect(ioc.domains).toEqual([
         "example.com",
         "exa-mple.com",
         "ex4mple.com",
         "short.is",
-        "sub_domain.example.com"
+        "sub_domain.example.com",
+        "two-dash-number--123.com",
       ]);
       expect(ioc.urls).toEqual([
         "http://192.168.0.1",
