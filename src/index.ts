@@ -59,6 +59,27 @@ import {
 } from "./aux/validators";
 import type { IOC, Options } from "./types";
 
+const funcByType = {
+  asns: extractASNs,
+  btcs: extractBTCs,
+  cves: extractCVEs,
+  domains: extractDomains,
+  emails: extractEmails,
+  eths: extractETHs,
+  gaPubIDs: extractGAPubIDs,
+  gaTrackIDs: extractGATrackIDs,
+  ipv4s: extractIPv4s,
+  ipv6s: extractIPv6s,
+  macAddresses: extractMacAddresses,
+  md5s: extractMD5s,
+  sha1s: extractSHA1s,
+  sha256s: extractSHA256s,
+  sha512s: extractSHA512s,
+  ssdeeps: extractSSDEEPs,
+  urls: extractURLs,
+  xmrs: extractXMRs,
+};
+
 export {
   extractASN,
   extractASNs,
@@ -164,27 +185,15 @@ export class IOCExtractor {
         })
       : normalized;
 
-    const ioc: IOC = {
-      asns: extractASNs(normalized),
-      btcs: extractBTCs(normalized),
-      cves: extractCVEs(normalized),
-      domains: extractDomains(normalized, options),
-      emails: extractEmails(normalized, options),
-      eths: extractETHs(normalized),
-      gaPubIDs: extractGAPubIDs(normalized),
-      gaTrackIDs: extractGATrackIDs(normalized),
-      ipv4s: extractIPv4s(normalized),
-      ipv6s: extractIPv6s(normalized),
-      macAddresses: extractMacAddresses(normalized),
-      md5s: extractMD5s(normalized),
-      sha1s: extractSHA1s(normalized),
-      sha256s: extractSHA256s(normalized),
-      sha512s: extractSHA512s(normalized),
-      ssdeeps: extractSSDEEPs(normalized),
-      urls: extractURLs(normalized, options),
-      xmrs: extractXMRs(normalized),
-    };
-    return ioc;
+      // Fuck TypeScript
+      let only = (options as any).only;
+      return Object.keys(funcByType).reduce(
+        (results, type)=>{
+          if(!only || only.includes(type))
+            results[type] = funcByType[type](normalized, options);
+          return results;
+        }, {}
+      ) as IOC;
   }
 }
 
