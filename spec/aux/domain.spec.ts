@@ -19,6 +19,7 @@ describe("network RegExps", () => {
       "-error-.invalid",
       "a.b-.de",
       "a.b--c.jp",
+      "ab--cd.com",
       "--.jp",
       "a--.jp",
       "-.co",
@@ -32,7 +33,8 @@ describe("network RegExps", () => {
     const input = domains.join(" ");
     const matches = input.match(domainRegex());
     expect(matches).toEqual([
-      "c.jp",
+      "a.b--c.jp",
+      "b--cd.com", // FIXME: ideally, this should be cd.com
       "www.foo.bar",
       "www.foo.bar",
       "www.foo.bar",

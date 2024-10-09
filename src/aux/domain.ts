@@ -5,9 +5,11 @@ import {
   labelLetters,
   nonStrictTld,
   oneOrMoreLabel,
+  relaxedOneOrMoreLabel,
   strictTld,
   zeroOrMoreLabel,
   zeroOrMoreLabelWithHyphen,
+  relaxedZeroOrMoreLabelWithHyphen
 } from "./regexes";
 
 export function domainRegex(
@@ -16,6 +18,9 @@ export function domainRegex(
   },
 ): RegExp {
   const tld = options.strict ? strictTld : nonStrictTld;
-  const regex = `((${idnPrefix}${zeroOrMoreLabel}|${oneOrMoreLabel})((?!.{0,63}--)${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)+(${tld})\\b`;
+  const regex =
+    `((?![^x][^n]--)(${idnPrefix}${zeroOrMoreLabel}|${relaxedOneOrMoreLabel})(${relaxedZeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)*` +
+    `((?![^x][^n]--)(${idnPrefix}${zeroOrMoreLabel}|${oneOrMoreLabel})(${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)` +
+    `(${tld})\\b`;
   return new RegExp(regex, "gi");
 }

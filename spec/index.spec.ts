@@ -48,9 +48,9 @@ describe("IOCExtractor", () => {
         "example.com test@example.com http://example.com example.nope test@example.nope http://example.nope テスト.nope test@テスト.nope http://テスト.nope";
       const ioc = extractIOC(input, { strict: false });
 
-      expect(ioc.domains).toEqual(["example.com", "example.nope"]);
-      expect(ioc.urls).toEqual(["http://example.com", "http://example.nope"]);
-      expect(ioc.emails).toEqual(["test@example.com", "test@example.nope"]);
+      expect(ioc.domains).toEqual(["example.com", "example.nope", "テスト.nope"]);
+      expect(ioc.urls).toEqual(["http://example.com", "http://example.nope", "http://テスト.nope"]);
+      expect(ioc.emails).toEqual(["test@example.com", "test@example.nope", "test@テスト.nope"]);
     });
   });
 

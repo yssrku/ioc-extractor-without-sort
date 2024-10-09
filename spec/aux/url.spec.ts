@@ -5,8 +5,10 @@ describe("urlRegex", () => {
     const input =
       "https://test-1.co.jp\nhttps://お名前.com\nhttps://google.com\nhttps://111.111.111.111/test.jsp\nwww.example.com";
     const matches = input.match(urlRegex());
+
     expect(matches).toEqual([
       "https://test-1.co.jp",
+      "https://お名前.com",
       "https://google.com",
       "https://111.111.111.111/test.jsp",
     ]);
