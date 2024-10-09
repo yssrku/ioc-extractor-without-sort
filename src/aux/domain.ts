@@ -9,7 +9,8 @@ import {
   strictTld,
   zeroOrMoreLabel,
   zeroOrMoreLabelWithHyphen,
-  relaxedZeroOrMoreLabelWithHyphen
+  relaxedZeroOrMoreLabelWithHyphen,
+  relaxedLabelLettersWithHyphen,
 } from "./regexes";
 
 export function domainRegex(
@@ -19,7 +20,8 @@ export function domainRegex(
 ): RegExp {
   const tld = options.strict ? strictTld : nonStrictTld;
   const regex =
-    `((?![^x][^n]--)(${idnPrefix}${zeroOrMoreLabel}|${relaxedOneOrMoreLabel})(${relaxedZeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)*` +
+    `(?=[${relaxedLabelLettersWithHyphen}.]{1,252}\\.(${tld})\\b)` +
+    `((?![^x][^n]--)(${idnPrefix}${zeroOrMoreLabel}|${relaxedOneOrMoreLabel})(${relaxedZeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.){0,126}` +
     `((?![^x][^n]--)(${idnPrefix}${zeroOrMoreLabel}|${oneOrMoreLabel})(${zeroOrMoreLabelWithHyphen}[${labelLetters}])?\\.)` +
     `(${tld})\\b`;
   return new RegExp(regex, "gi");

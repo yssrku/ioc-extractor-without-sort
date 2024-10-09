@@ -4,13 +4,14 @@ const alphabets = "a-z";
 const numbers = "0-9";
 export const labelLetters = `${alphabets}${numbers}\\u00a1-\\uffff`;
 export const relaxedLabelLetters = labelLetters + "_";
+export const relaxedLabelLettersWithHyphen = relaxedLabelLetters + "\\-";
 export const oneOrMoreLabel = `[${labelLetters}]{1,63}`;
 export const zeroOrMoreLabel = `[${labelLetters}]{0,63}`;
-export const zeroOrMoreLabelWithHyphen = `[${labelLetters}-]{0,63}`;
+export const zeroOrMoreLabelWithHyphen = `[${labelLetters}\\-]{0,63}`;
 export const relaxedOneOrMoreLabel = `[${relaxedLabelLetters}]{1,63}`;
 export const relaxedZeroOrMoreLabel = `[${relaxedLabelLetters}]{0,63}`;
-export const relaxedZeroOrMoreLabelWithHyphen = `[${relaxedLabelLetters}-]{0,63}`;
-export const nonDigitTwoOrMoreLabelWithHyphen = `[${alphabets}-]{2,63}`;
+export const relaxedZeroOrMoreLabelWithHyphen = `[${relaxedLabelLettersWithHyphen}]{0,63}`;
+export const nonDigitTwoOrMoreLabelWithHyphen = `[${alphabets}\\-]{2,63}`;
 export const idnPrefix = "xn--";
 
 export const nonStrictTld = nonDigitTwoOrMoreLabelWithHyphen;
