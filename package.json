@@ -1,7 +1,7 @@
 {
-  "name": "ioc-extractor",
-  "version": "8.0.4",
-  "description": "IoC (Indicator of Compromise) extractor",
+  "name": "ioc-extractor-without-sort",
+  "version": "8.0.4-p1",
+  "description": "ioc-extractor fork that keeps indicator order from the input document + other patches",
   "type": "module",
   "exports": {
     ".": {
@@ -58,7 +58,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ninoseki/ioc-extractor.git"
+    "url": "https://github.com/yssrku/ioc-extractor-without-sort.git"
   },
   "author": "Manabu Niseki",
   "license": "MIT",

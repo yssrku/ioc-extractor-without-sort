@@ -1,5 +1,14 @@
 # IoC extractor
 
+This is a fork of https://github.com/ninoseki/ioc-extractor with the following changes
+* sorting is removed
+* IPv4 and IPv6 address also accepts optional CIDR mask (can be disable by setting `enableOptionalMask: false`)
+* new `only` option for extractIOC to only extract certain types of IoCs
+
+I'm too lazy to make this configurable and send PR, so here we are.
+
+***
+
 [![npm version](https://badge.fury.io/js/ioc-extractor.svg)](https://badge.fury.io/js/ioc-extractor)
 ![Node.js CI](https://github.com/ninoseki/ioc-extractor/workflows/Node.js%20CI/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/ninoseki/ioc-extractor/badge)](https://www.codefactor.io/repository/github/ninoseki/ioc-extractor)
