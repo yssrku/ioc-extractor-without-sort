@@ -1,6 +1,6 @@
 {
   "name": "ioc-extractor-without-sort",
-  "version": "8.0.4-p1",
+  "version": "8.0.5",
   "description": "ioc-extractor fork that keeps indicator order from the input document + other patches",
   "type": "module",
   "exports": {
