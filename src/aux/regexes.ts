@@ -2,7 +2,7 @@ import { tlds } from "./tlds";
 
 const alphabets = "a-z";
 const numbers = "0-9";
-export const labelLetters = `${alphabets}${numbers}\\u00a1-\\uffff`;
+export const labelLetters = `${alphabets}${numbers}\\u00a1-\\u2027\\u202a-\\uffff`;
 export const relaxedLabelLetters = labelLetters + "_";
 export const relaxedLabelLettersWithHyphen = relaxedLabelLetters + "\\-";
 export const oneOrMoreLabel = `[${labelLetters}]{1,63}`;

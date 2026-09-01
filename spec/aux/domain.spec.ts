@@ -40,4 +40,20 @@ describe("network RegExps", () => {
       "www.foo.bar",
     ]);
   });
+
+  it("should not treat U+2028 / U+2029 as label characters", () => {
+    const lineSep = "\u2028";
+    const paraSep = "\u2029";
+
+    expect(`foo${lineSep}bar.com`.match(domainRegex())).toEqual(["bar.com"]);
+    expect(`foo${paraSep}bar.com`.match(domainRegex())).toEqual(["bar.com"]);
+    expect(`evil.com${lineSep}foo.com`.match(domainRegex())).toEqual([
+      "evil.com",
+      "foo.com",
+    ]);
+    expect(`evil.com${paraSep}foo.com`.match(domainRegex())).toEqual([
+      "evil.com",
+      "foo.com",
+    ]);
+  });
 });
